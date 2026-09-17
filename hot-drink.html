@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FAF7F2">
+<title>Son of Mango Founder Steps Down</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+:root{
+  --ground:#F0EEE9; --band:#FAF7F2; --ink:#17171A; --dim:#5C6366; --faint:#8A9093;
+  --rule:#C2956E; --caramel:#B0865C; --tick:#6B3FA0; --cross:#E8632A; --hot:#B44A22;
+  --poster:#F5F3EE; --poster-ink:#14110E; --poster-soft:rgba(20,17,14,.68); --poster-faint:rgba(20,17,14,.5); --poster-rule:rgba(20,17,14,.16);
+  --shade:40,50,54; --header-h:132px; --bar-h:44px;
+  --spring:cubic-bezier(.2,1.4,.4,1);
+}
+html,body{ width:100%; min-height:100vh; }
+body{
+  background:var(--ground); color:var(--ink); font-family:'DM Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased; padding-top:var(--header-h); padding-bottom:calc(var(--bar-h) + 14px);
+}
+button{ font:inherit; border:none; background:none; cursor:pointer; color:inherit; }
+:focus-visible{ outline:2px solid var(--hot); outline-offset:2px; border-radius:6px; }
+
+/* ══ HEADER ══ */
+.header{
+  position:fixed; top:0; left:0; right:0; z-index:20; height:var(--header-h);
+  background:#F6F4EF; border-bottom:1px solid var(--rule);
+  display:flex; flex-direction:column; justify-content:center; gap:.55rem; padding:.75rem 1.2rem .6rem;
+}
+.htop{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:.5rem; }
+.back{
+  justify-self:start; font-family:'Space Grotesk',sans-serif; font-size:.62rem; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:flex; align-items:center; gap:.3rem;
+  transition:color .2s;
+}
+.back:hover{ color:var(--ink); }
+.title{ display:flex; flex-direction:column; align-items:center; text-align:center; line-height:1.15; }
+.title .eyebrow{ font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); margin-bottom:.2rem; }
+.title b{ font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; letter-spacing:.01em; color:var(--ink); max-width:520px; }
+.score-pill{
+  justify-self:end; background:#E8E6E1; border:none; border-radius:99px;
+  padding:.35rem .85rem; font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.06em;
+  color:var(--dim); white-space:nowrap; display:flex; align-items:center; gap:.4rem;
+}
+.score-pill .dot{ width:7px; height:7px; border-radius:50%; background:var(--hot); animation:pulse 2s infinite; }
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.tier1{ display:flex; justify-content:center; gap:1.6rem; border-bottom:1px solid var(--poster-rule); padding-bottom:.55rem; }
+.t1-btn{
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.78rem; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--faint); padding-bottom:.5rem; border-bottom:2px solid transparent;
+  transition:color .2s, border-color .2s;
+}
+.t1-btn:hover{ color:var(--ink); }
+.t1-btn.active{ color:var(--ink); border-color:var(--hot); }
+
+.tier2{ display:flex; gap:.45rem; overflow-x:auto; padding:.15rem .1rem .05rem; scrollbar-width:none; justify-content:center; flex-wrap:wrap; }
+.tier2::-webkit-scrollbar{ display:none; }
+.t2-chip{
+  flex:0 0 auto; font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.05em;
+  padding:.34rem .75rem; border-radius:99px; border:none; color:var(--dim);
+  background:#E8E6E1; white-space:nowrap; transition:all .15s;
+}
+.t2-chip:hover{ background:#DBD8D1; color:var(--ink); }
+.t2-chip.active{ background:#43413C; color:#FAF7F2; }
+
+/* ══ STAGE / CARD ══ */
+.stage{ display:flex; justify-content:center; padding:1rem 1rem; min-height:calc(100vh - var(--header-h) - var(--bar-h) - 28px); align-items:flex-start; }
+.card{
+  width:min(680px,94vw); background:var(--poster); border-radius:0; padding:clamp(1.1rem,2.6vw,1.6rem);
+  box-shadow:0 6px 18px rgba(0,0,0,.14); animation:cardIn .35s var(--spring) both;
+}
+@keyframes cardIn{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)} }
+.kick{ display:flex; align-items:center; gap:9px; font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--poster-faint); margin-bottom:1.3rem; }
+.kick i{ display:block; width:26px; height:10px; flex:none; background:var(--caramel); font-style:normal; }
+.toggle-wrap{ display:none; align-items:center; gap:.45rem; margin-left:auto; }
+.toggle-txt{ font-family:'DM Mono',monospace; font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--poster-faint); }
+.toggle-txt.on{ color:var(--poster-ink); }
+.switch{ position:relative; width:32px; height:18px; border-radius:99px; background:#DAD7CF; border:1px solid rgba(20,17,14,.18); flex:none; transition:background .2s; }
+.switch .knob{ position:absolute; top:1px; left:1px; width:14px; height:14px; border-radius:50%; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,.25); transition:transform .2s var(--spring); }
+.switch.on{ background:#14110E; }
+.switch.on .knob{ transform:translateX(14px); }
+
+.section-note{ font-family:'DM Sans'; font-size:.95rem; color:var(--poster-soft); line-height:1.6; margin-bottom:1.2rem; }
+.hero-word{ font-family:'Anton',Impact,sans-serif; font-weight:400; font-size:clamp(2rem,7vw,3.2rem); line-height:1; color:var(--poster-ink); margin-bottom:.4rem; letter-spacing:.01em; }
+
+/* pagination controls shared by Before / While / Quiz cards */
+.pager{ display:flex; align-items:center; justify-content:space-between; margin-top:1.5rem; padding-top:1.1rem; border-top:1px solid var(--poster-rule); }
+.pager-count{ font-family:'DM Mono',monospace; font-size:.66rem; letter-spacing:.08em; color:var(--poster-faint); text-transform:uppercase; }
+.pager-btns{ display:flex; gap:.5rem; }
+.pbtn{
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.72rem; letter-spacing:.05em;
+  padding:.55rem 1.1rem; border-radius:99px; background:var(--hot); color:#FFF7F3; transition:transform .1s var(--spring), opacity .15s;
+}
+.pbtn:active{ transform:scale(.95); }
+.pbtn.ghost{ background:transparent; border:1px solid var(--poster-rule); color:var(--poster-soft); }
+.pbtn:disabled{ opacity:.3; cursor:not-allowed; }
+
+/* capsule option / pile buttons — the "egg" pattern */
+.optlist{ display:flex; flex-direction:column; align-items:flex-start; gap:.4rem; margin-top:.3rem; }
+.opt2{
+  display:inline-block; width:auto; max-width:100%;
+  text-align:left; padding:.4rem .8rem; border-radius:10px; background:rgba(20,17,14,.045); border:1px solid transparent;
+  font-size:.85rem; color:var(--poster-soft); transition:all .15s;
+}
+.opt2:hover{ background:rgba(20,17,14,.08); }
+.opt2.picked{ background:var(--hot); color:#FFF7F3; }
+
+.piles{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; }
+.egg{
+  border-radius:999px; background:#E1CFA9; padding:.5rem 1.1rem; display:flex; flex-direction:column; align-items:center; gap:.2rem;
+  transition:background .18s, transform .1s var(--spring);
+}
+.egg span.w{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.82rem; color:var(--ink); }
+.egg span.l{ font-family:'DM Mono',monospace; font-size:.5rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); }
+.egg:hover{ background:var(--hot); }
+.egg:hover span.w{ color:#FFF7F3; }
+.egg.right{ background:var(--tick); }
+.egg.right span.w, .egg.right span.l{ color:#F5EEFF; }
+.egg.wrong{ background:var(--cross); animation:shake .4s; }
+.egg.wrong span.w, .egg.wrong span.l{ color:#FFF3EC; }
+@keyframes shake{ 0%,100%{transform:none} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+.note{ margin-top:1rem; min-height:1.5em; }
+.note .r{ font-family:'DM Mono',monospace; font-weight:500; font-size:.78rem; color:var(--poster-ink); background:rgba(20,17,14,.08); border-radius:4px; padding:.4em .7em; display:inline-block; }
+.note .eg{ font-size:.82rem; color:var(--poster-soft); font-style:italic; margin-top:.4rem; }
+
+.feedback-line{ font-size:.85rem; margin-top:.9rem; padding:.6rem .8rem; border-radius:10px; display:none; }
+.feedback-line.show{ display:block; }
+.feedback-line.good{ background:rgba(107,63,160,.12); color:var(--tick); border:1px solid var(--tick); }
+.feedback-line.bad{ background:rgba(232,99,42,.12); color:var(--cross); border:1px solid var(--cross); }
+
+.reading-para{ font-size:1rem; line-height:1.85; color:var(--poster-soft); }
+.vw{ background:rgba(176,134,92,.18); color:var(--caramel); border-bottom:1px dashed var(--caramel); padding:1px 3px; border-radius:3px; cursor:pointer; }
+.vw:hover{ background:rgba(176,134,92,.3); }
+.word-tip{
+  position:fixed; z-index:99; background:var(--ink); color:#f0ede8; border:1px solid var(--caramel);
+  border-radius:8px; padding:8px 12px; max-width:min(240px, calc(100vw - 24px));
+  font-size:.76rem; line-height:1.5; pointer-events:none; opacity:0; visibility:hidden;
+  transition:opacity .15s,visibility .15s; box-shadow:0 6px 20px rgba(0,0,0,.4);
+}
+.word-tip.show{ opacity:1; visibility:visible; }
+
+.glossary-row{ display:flex; justify-content:space-between; gap:1rem; padding:.75rem 0; border-bottom:1px solid var(--poster-rule); font-size:.86rem; }
+.glossary-row b{ font-family:'Space Grotesk',sans-serif; color:var(--caramel); font-weight:700; flex:0 0 34%; }
+.glossary-row span{ color:var(--poster-soft); flex:1; }
+
+/* lists reused across post-reading exercises */
+.match-layout,.syn-layout{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:1rem; }
+@media(max-width:520px){.match-layout,.syn-layout{grid-template-columns:1fr}}
+.col-label{ font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--poster-faint); margin-bottom:8px; text-align:center; }
+.mitem{ border-radius:12px; padding:.6rem .8rem; font-size:.82rem; line-height:1.4; margin-bottom:.5rem; background:#F2EADA; transition:all .2s; cursor:pointer; }
+.wordm{ color:var(--caramel); font-weight:600; border-left:3px solid var(--caramel); }
+.defm{ color:var(--poster-soft); min-height:52px; display:flex; align-items:center; }
+.mitem.selected{ background:var(--hot); color:#FFF7F3; }
+.mitem.correct{ background:rgba(107,63,160,.14); color:var(--tick); cursor:default; }
+.mitem.incorrect{ background:rgba(232,99,42,.14); animation:shake .4s; }
+.synitem{ border-radius:99px; padding:.6rem .9rem; font-size:.82rem; margin-bottom:.5rem; cursor:pointer; text-align:center; transition:all .15s; background:#F2EADA; color:var(--poster-soft); }
+.synitem.selected{ background:var(--hot); color:#fff; }
+.synitem.matched{ background:rgba(107,63,160,.14); color:var(--tick); cursor:default; }
+.synitem.wrong{ background:rgba(232,99,42,.14); animation:shake .4s; }
+
+.qf-opt{ text-align:left; padding:.8rem 1rem; border-radius:14px; background:#F2EADA; margin-bottom:.5rem; font-size:.86rem; color:var(--poster-soft); transition:all .15s; }
+.qf-opt.right{ background:rgba(107,63,160,.18); color:var(--tick); }
+.qf-opt.wrong{ background:rgba(232,99,42,.18); color:var(--cross); }
+
+.word-bank{ display:flex; flex-wrap:wrap; gap:.5rem; padding:.9rem; background:#F2EADA; border-radius:12px; min-height:52px; margin-bottom:1rem; }
+.chip2{ display:inline-flex; align-items:center; padding:.5rem .9rem; background:var(--poster); border:1px solid var(--caramel); border-radius:99px; font-size:.85rem; cursor:pointer; color:var(--poster-ink); }
+.chip2.used{ opacity:.25; cursor:not-allowed; }
+.answer-strip{ display:flex; flex-wrap:wrap; gap:.5rem; min-height:48px; padding:.6rem 0; border-bottom:2px solid var(--poster-rule); margin-bottom:1rem; align-items:center; }
+.answer-strip .chip2{ background:rgba(176,134,92,.15); }
+.answer-strip .placeholder{ color:var(--poster-faint); font-size:.82rem; font-style:italic; }
+
+.order-row{ display:flex; align-items:flex-start; gap:.6rem; background:#F2EADA; border-radius:12px; padding:.7rem .8rem; margin-bottom:.5rem; font-size:.85rem; line-height:1.5; transition:all .2s; }
+.order-row.correct{ background:rgba(107,63,160,.14); }
+.order-row.incorrect{ background:rgba(232,99,42,.14); }
+.order-controls{ display:flex; flex-direction:column; gap:3px; flex-shrink:0; }
+.order-controls button{ width:24px; height:24px; border-radius:6px; background:var(--poster); border:1px solid var(--poster-rule); color:var(--poster-soft); font-size:.7rem; }
+.order-controls button:disabled{ opacity:.25; }
+.order-num{ font-family:'DM Mono',monospace; font-size:.7rem; color:var(--poster-faint); width:16px; flex-shrink:0; }
+
+.tfng-row{ background:#F2EADA; border-radius:14px; padding:1rem 1.1rem; margin-bottom:.9rem; }
+.tfng-statement{ font-size:.88rem; line-height:1.5; margin-bottom:.75rem; }
+.tfng-btns,.bucket-row{ display:flex; gap:.5rem; flex-wrap:wrap; }
+.tfng-btn,.bucket-btn{ padding:.45rem 1rem; border-radius:99px; background:var(--poster); border:1px solid var(--poster-rule); color:var(--poster-soft); font-size:.74rem; font-family:'DM Mono',monospace; }
+.tfng-btn.right2,.bucket-btn.right2{ background:rgba(107,63,160,.18); border-color:var(--tick); color:var(--tick); }
+.tfng-btn.wrong2,.bucket-btn.wrong2{ background:rgba(232,99,42,.18); border-color:var(--cross); color:var(--cross); }
+.tfng-btn:disabled,.bucket-btn:disabled{ cursor:default; }
+.tfng-explain{ font-size:.78rem; color:var(--poster-faint); margin-top:.6rem; font-style:italic; display:none; }
+.tfng-explain.show{ display:block; }
+
+.swipe-card{ text-align:center; padding:1.5rem 0; }
+.swipe-progress{ font-family:'DM Mono',monospace; font-size:.66rem; color:var(--poster-faint); letter-spacing:.08em; margin-bottom:1rem; }
+.swipe-statement{ font-size:1.05rem; line-height:1.6; margin-bottom:1.8rem; min-height:80px; display:flex; align-items:center; justify-content:center; color:var(--poster-ink); }
+.swipe-btns{ display:flex; gap:.8rem; justify-content:center; }
+.swipe-btn{ flex:1; max-width:170px; padding:.85rem; border-radius:14px; font-size:.82rem; font-family:'Space Grotesk',sans-serif; font-weight:700; }
+.swipe-btn.agree{ background:rgba(107,63,160,.15); color:var(--tick); }
+.swipe-btn.disagree{ background:rgba(232,99,42,.15); color:var(--cross); }
+.swipe-bar{ height:8px; border-radius:99px; overflow:hidden; display:flex; margin:1rem 0 .4rem; background:#F2EADA; }
+.swipe-bar .a{ background:var(--tick); } .swipe-bar .d{ background:var(--cross); }
+
+.blank{ display:inline-block; min-width:80px; padding:2px 10px; margin:0 2px; border-bottom:2px solid var(--caramel); text-align:center; cursor:pointer; color:var(--caramel); font-family:'DM Mono',monospace; font-size:.82rem; }
+.blank.filled{ color:var(--poster-ink); }
+.blank.correct{ border-color:var(--tick); color:var(--tick); }
+.blank.incorrect{ border-color:var(--cross); color:var(--cross); }
+.cloze-text{ font-size:1rem; line-height:2.3; color:var(--poster-soft); }
+
+/* ══ BOTTOM BAR ══ */
+.bar{
+  position:fixed; left:0; right:0; bottom:0; height:var(--bar-h); z-index:15; display:flex; align-items:center; gap:.8rem;
+  padding:0 1.2rem; background:var(--band); border-top:1px solid var(--rule);
+  font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color:var(--faint);
+}
+.track{ position:relative; flex:1; height:7px; border-radius:99px; overflow:hidden; background:#D8D8DA; }
+.fill{ height:100%; width:0; border-radius:99px; background:var(--caramel); transition:width .4s cubic-bezier(.2,.9,.3,1); }
+.bar .n{ font-variant-numeric:tabular-nums; color:var(--dim); white-space:nowrap; }
+
+/* ══ COMPLETION OVERLAY ══ */
+.over{ position:fixed; inset:0; z-index:60; display:none; flex-direction:column; align-items:center; justify-content:center; gap:.6rem; padding:2rem 1.4rem; text-align:center; background:var(--ground); overflow-y:auto; }
+.over.show{ display:flex; }
+.over .big{ font-family:'Anton',Impact,sans-serif; font-size:clamp(2.4rem,12vw,3.6rem); color:var(--ink); line-height:1; }
+.over .sub{ font-size:.85rem; color:var(--dim); max-width:22rem; }
+.stats-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.6rem; margin:1.4rem 0; width:min(560px,92vw); }
+.stat-box{ background:var(--band); border:1px solid var(--rule); padding:1rem; text-align:center; }
+.stat-val{ font-size:1.6rem; font-family:'DM Mono',monospace; color:var(--hot); display:block; }
+.stat-label{ font-size:.65rem; color:var(--faint); margin-top:3px; text-transform:uppercase; letter-spacing:.05em; }
+.takeaway{ display:flex; gap:.6rem; align-items:flex-start; padding:.8rem 1rem; border:1px solid var(--rule); background:var(--band); margin-bottom:.5rem; font-size:.84rem; line-height:1.5; text-align:left; width:min(560px,92vw); }
+.takeaway i{ color:var(--hot); margin-top:2px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="htop">
+    <button class="back" onclick="restart()"><i class="fas fa-rotate-left"></i> Restart</button>
+    <div class="title"><span class="eyebrow" id="eyebrowLabel"></span><b id="titleLabel"></b></div>
+    <div class="score-pill"><div class="dot"></div><span id="score-val">0</span> pts</div>
+  </div>
+  <nav class="tier1" id="tier1"></nav>
+  <div class="tier2" id="tier2"></div>
+</header>
+
+<main class="stage">
+  <div class="card" id="card">
+    <div class="kick"><i></i><span id="kickLabel">Your Opinions</span>
+      <div class="toggle-wrap" id="readToggleWrap">
+        <span class="toggle-txt" id="toggleTxtSections">Sections</span>
+        <button class="switch" id="readModeSwitch" aria-label="Toggle between sections and full text"><span class="knob"></span></button>
+        <span class="toggle-txt" id="toggleTxtFull">Full text</span>
+      </div>
+    </div>
+    <div id="card-content"></div>
+  </div>
+</main>
+
+<div class="bar">
+  <span class="n" id="barLeft">0 pts</span>
+  <div class="track"><div class="fill" id="barFill"></div></div>
+  <span id="barRight">before</span>
+</div>
+
+<div class="over" id="ph-done">
+  <div class="big" id="s-score-big">0</div>
+  <div class="sub">points earned across the lesson</div>
+  <div class="stats-row">
+    <div class="stat-box"><span class="stat-val" id="s-vocab">0</span><div class="stat-label">Words Explored</div></div>
+    <div class="stat-box"><span class="stat-val" id="s-quiz">0%</span><div class="stat-label">Quiz Accuracy</div></div>
+    <div class="stat-box"><span class="stat-val" id="s-time">0</span><div class="stat-label">Minutes Spent</div></div>
+  </div>
+  <div id="takeaways-container" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
+  <button class="pbtn" style="margin-top:1rem" onclick="restart()"><i class="fas fa-redo"></i> Start Again</button>
+</div>
+
+<div id="toast" style="position:fixed;bottom:60px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#f0ede8;border-radius:10px;padding:10px 20px;font-size:.85rem;z-index:80;opacity:0;transition:all .25s;white-space:nowrap;"></div>
+<div class="word-tip" id="wordTip"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   BLUEPRINT: everything the learner sees — title, category tag,
+   survey questions, reading paragraphs + glossary, quiz, vocabulary
+   games, and takeaways — lives in this one LESSON object. To turn
+   this into a lesson for a different article, replace the values
+   below; no other code needs to change.
+   ═══════════════════════════════════════════════════════════════════ */
+const LESSON = {
+  meta: {
+    eyebrow: "Health & Wellbeing · Science",
+    title: "Does a Hot Drink Really Cool You Down?"
+  },
+  survey: [
+    { id:"s1", question:"Have you ever heard the idea that drinking a hot drink can cool you down on a hot day? Do you think it sounds believable?",
+      options:["Yes, and I believe it's true","Yes, but it sounds like a myth to me","No, I've never heard this before","I'm not sure either way"] },
+    { id:"s2", question:"When it's very hot outside, what do you usually reach for to cool down?",
+      options:["Cold water or an iced drink","A hot tea or coffee","Whatever I normally drink, regardless of temperature","I try not to drink much at all"] },
+    { id:"s3", question:"How much do you trust old sayings and 'common knowledge' passed down from previous generations (like grandparents' health advice)?",
+      options:["A lot — they often turn out to be true","Some — but I'd want scientific proof first","Not much — I prefer modern research","It depends entirely on the topic"] }
+  ],
+  paragraphs: [
+    { text: "Could a warm cup of tea really be the key to cooling down in hot weather? Or is that just something caffeine <vw>fiends</vw> tell themselves as they work through a pot of coffee while the temperature climbs to 30C?" },
+    { text: "Prof John Tregoning, author of a book on wellness, ageing and death, says it depends on the <vw>circumstances</vw>. He points to the work of Australian scientist Prof Ollie Jay, a world leader in researching how heat balances out in the body." },
+    { text: "When it comes to drinking a hot beverage, Tregoning explains there are two separate effects on the body: the heat that the drink itself gives you, and the amount that you sweat as a result of it." },
+    { text: "While you are drinking the warm liquid, its high temperature will cause your body temperature to become <vw>elevated</vw>. That rise in temperature then triggers you to sweat more than usual." },
+    { text: "This is where things get complicated. Sweat only cools the body once it <vw>evaporates</vw>: as water on the skin turns to gas, it draws heat energy away from the body." },
+    { text: "Not every setting is <vw>conducive</vw> to this process, though. In breezy spaces the sweat evaporates efficiently, but in places with high <vw>humidity</vw> or poor <vw>ventilation</vw>, sweat simply runs off the body instead — an <vw>inefficient</vw> outcome that leaves you hotter rather than cooler." },
+    { text: "<vw>Essentially</vw>: drinking a hot drink to cool down after a breezy coastal walk works in your favour; drinking one to cool down in a hot, humid rainforest does not. As Tregoning puts it, \"The key is to take on fluids, whatever their temperature, especially in hot weather.\" There isn't a major advantage to hot or cold drinks either way, he adds — it comes down to <vw>personal</vw> preference." }
+  ],
+  vocabulary: {
+    "fiends":"People with an intense enthusiasm or craving for something (here, caffeine)",
+    "circumstances":"The specific conditions or facts surrounding a situation",
+    "elevated":"Raised to a higher level than normal",
+    "evaporates":"Changes from a liquid into a gas, especially due to heat",
+    "conducive":"Making a particular outcome or situation more likely to happen",
+    "humidity":"The amount of moisture or water vapour present in the air",
+    "ventilation":"The circulation of fresh air through an enclosed space",
+    "inefficient":"Not producing the desired result with the effort or resources used",
+    "essentially":"Used to emphasise the most basic or important point of something",
+    "personal":"Relating to or belonging to a particular individual, rather than anyone else"
+  },
+  synonyms: { "circumstances":"conditions","elevated":"raised","evaporates":"vanishes","conducive":"favourable","inefficient":"wasteful","essentially":"basically","fiends":"addicts","personal":"individual" },
+  quiz: [
+    { q:"According to Prof Tregoning, what are the two effects that a hot drink has on the body?", opts:["It cools the body instantly and has no other effect","It adds heat to the body and increases how much you sweat","It raises blood pressure and reduces thirst","It slows the heart rate and lowers body temperature"], a:1 },
+    { q:"Who is the Australian scientist described as a world leader in heat research?", opts:["Prof John Tregoning","Prof Ollie Jay","Dr William Kornrich","Prof Joseph Stromberg"], a:1 },
+    { q:"Why does sweating help cool the body down?", opts:["Because sweat lowers blood sugar levels","Because sweat absorbs caffeine from the bloodstream","Because heat energy is drawn away from the body as sweat evaporates","Because sweat makes you drink more water"], a:2 },
+    { q:"In which situation would drinking a hot drink be unlikely to cool you down?", opts:["On a breezy coastal walk","In a cool, air-conditioned room","In a humid, poorly ventilated space","While sitting still indoors"], a:2 },
+    { q:"What happens, according to the text, when sweat can't evaporate properly?", opts:["You cool down twice as fast","The body stops sweating altogether","You end up hotter rather than cooler","Your body temperature drops immediately"], a:2 },
+    { q:"What is Tregoning's overall practical advice about drinks in hot weather?", opts:["Only drink cold beverages in summer","Avoid caffeine at all costs","Take on fluids regularly, whatever their temperature","Only drink hot beverages near the coast"], a:2 }
+  ],
+  takeaways: [
+    { icon:"fas fa-mug-hot", text:"A hot drink adds heat to the body, but it also increases how much you sweat — and that extra sweat is what can help cool you down." },
+    { icon:"fas fa-tint", text:"The cooling effect only works once sweat evaporates from the skin; sweat that simply runs off the body doesn't cool you down." },
+    { icon:"fas fa-wind", text:"Humidity and poor ventilation can turn a hot drink from helpful to counterproductive by stopping sweat from evaporating." },
+    { icon:"fas fa-glass-water", text:"Overall hydration matters more than a drink's temperature — beyond that, the choice is mostly down to personal preference." }
+  ],
+  reorderSentences: [
+    { words:["Sweat","cools","down","the","body","when","it","evaporates."] },
+    { words:["Prof","Ollie","Jay","is","a","world","leader","in","researching","heat."] },
+    { words:["Humidity","and","poor","ventilation","can","make","sweat","run","off","the","body."] }
+  ],
+  trueFalseNotGiven: [
+    { statement:"Drinking a hot drink has no effect on body temperature.", answer:"False", explain:"The text says a hot drink's own temperature causes body temperature to become briefly elevated." },
+    { statement:"Sweat only has a cooling effect once it evaporates from the skin.", answer:"True", explain:"The text states sweat cools the body when it evaporates, drawing heat energy away." },
+    { statement:"In humid or poorly ventilated places, a hot drink can make you feel hotter rather than cooler.", answer:"True", explain:"The text says sweat runs off instead of evaporating in these conditions, which is inefficient." },
+    { statement:"Prof Ollie Jay carried out his research at a university in Canada.", answer:"Not Given", explain:"The text describes him as an Australian scientist but doesn't say where his research took place." },
+    { statement:"Tregoning says cold drinks are clearly better than hot drinks for cooling down.", answer:"False", explain:"Tregoning says there isn't a massive advantage either way — it's down to personal preference." }
+  ],
+  factOpinion: [
+    { statement:"Sweat cools the body once it evaporates from the skin.", type:"fact", explain:"A description of a physical process, not a viewpoint." },
+    { statement:"In humid or poorly ventilated spaces, sweat runs off the body instead of evaporating.", type:"fact", explain:"A stated physical outcome under specific conditions." },
+    { statement:"There isn't a massive advantage in hot or cold drinks.", type:"opinion", explain:"Tregoning's personal assessment based on the evidence, not a strict measurement." },
+    { statement:"It's down to personal preference.", type:"opinion", explain:"A subjective conclusion about drink choice." },
+    { statement:"Prof Ollie Jay is a world leader in researching heat.", type:"opinion", explain:"An evaluative description of Jay's standing, not a strictly verifiable fact." },
+    { statement:"Drinking a hot beverage increases how much a person sweats.", type:"fact", explain:"A reported physiological effect, not a matter of opinion." }
+  ],
+  agreeDisagree: [
+    "People should choose their drinks based on personal preference rather than trying to control body temperature.",
+    "Staying hydrated is more important than worrying about the temperature of what you drink.",
+    "It's worth changing your drink choice depending on the weather and environment you're in.",
+    "Popular health beliefs, like hot drinks cooling you down, are usually based on solid science.",
+    "Comfort should matter more than following scientific advice about food and drink."
+  ],
+  cloze: { text:"Sweat cools down the body when it {evaporates}. In {humid} or poorly {ventilated} spaces, sweat runs off the body instead, which is {inefficient}.", distractors:["freezes","dry","heated","effective"] }
+};
+
+/* ── state ── */
+let score=0, vocabSeen=new Set(), startTime=Date.now();
+let tier='before', sub=null;
+let surveyIdx=0, surveyAns={};
+let readIdx=0;
+let readFullText=false;
+let quizIdx=0, quizAns={};
+
+const TIER2 = {
+  before: [{id:'opinions', label:'Your Opinions'}],
+  while:  [{id:'read', label:'Read the Article'}, {id:'wordbank', label:'Word Bank'}],
+  post: [
+    {id:'dragmatch', label:'Match'}, {id:'synonyms', label:'Synonyms'}, {id:'quickfire', label:'Quick-Fire'},
+    {id:'reorder', label:'Word Order'}, {id:'paragraph', label:'Story Order'}, {id:'cloze', label:'Fill Gaps'},
+    {id:'truefalse', label:'True/False'}, {id:'factopinion', label:'Fact/Opinion'}, {id:'agreedisagree', label:'Agree/Disagree'},
+    {id:'quiz', label:'Quiz'}
+  ]
+};
+const TIER1_LABELS = { before:'Before', while:'While', post:'Post' };
+const TARGET_POINTS = 320;
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function stripTags(html){ return html.replace(/<[^>]+>/g,''); }
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; },2200); }
+function addScore(n){ score+=n; document.getElementById('score-val').textContent=score; paintBar(); }
+
+/* ── nav rendering ── */
+function renderTier1(){
+  const el = document.getElementById('tier1');
+  el.innerHTML = Object.keys(TIER1_LABELS).map(t =>
+    `<button class="t1-btn ${t===tier?'active':''}" data-t="${t}">${TIER1_LABELS[t]}</button>`).join('');
+  el.querySelectorAll('.t1-btn').forEach(b => b.addEventListener('click', () => {
+    tier = b.dataset.t; sub = TIER2[tier][0].id; renderTier1(); renderTier2(); renderCard();
+  }));
+  syncHeaderHeight();
+}
+function renderTier2(){
+  const el = document.getElementById('tier2');
+  el.innerHTML = TIER2[tier].map(c => `<button class="t2-chip ${c.id===sub?'active':''}" data-s="${c.id}">${c.label}</button>`).join('');
+  el.querySelectorAll('.t2-chip').forEach(b => b.addEventListener('click', () => { sub=b.dataset.s; renderTier2(); renderCard(); }));
+  syncHeaderHeight();
+}
+function paintBar(){
+  document.getElementById('barLeft').textContent = score + ' pts';
+  document.getElementById('barRight').textContent = TIER1_LABELS[tier] + ' · ' + (TIER2[tier].find(c=>c.id===sub)||{}).label;
+  document.getElementById('barFill').style.width = Math.min(100, Math.round(score/TARGET_POINTS*100)) + '%';
+}
+
+/* ── keep the fixed header's reserved space in sync with its real height,
+   so the card/stage below never overlaps it (e.g. when chips wrap to 2 lines) ── */
+function syncHeaderHeight(){
+  const header = document.querySelector('.header');
+  if (!header) return;
+  document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+}
+
+function setKick(label){ document.getElementById('kickLabel').textContent = label; }
+function content(){ return document.getElementById('card-content'); }
+
+let activeTipWord = null;
+function showWordTip(span){
+  const tip = document.getElementById('wordTip');
+  tip.textContent = span.dataset.def || '';
+  activeTipWord = span;
+  tip.style.visibility = 'hidden';
+  tip.classList.add('show');
+  const rect = span.getBoundingClientRect();
+  const tipRect = tip.getBoundingClientRect();
+  const headerH = document.querySelector('.header').offsetHeight;
+  let left = rect.left + rect.width/2 - tipRect.width/2;
+  left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
+  let top = rect.top - tipRect.height - 8;
+  if (top < headerH + 8) top = rect.bottom + 8;
+  top = Math.min(top, window.innerHeight - tipRect.height - 8);
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+  tip.style.visibility = '';
+}
+function hideWordTip(){
+  document.getElementById('wordTip').classList.remove('show');
+  activeTipWord = null;
+}
+document.addEventListener('click', () => hideWordTip());
+window.addEventListener('scroll', () => hideWordTip(), true);
+
+function renderCard(){
+  paintBar();
+  document.getElementById('readToggleWrap').style.display = 'none';
+  if (tier==='before') return buildOpinions();
+  if (tier==='while') return sub==='read' ? buildRead() : buildWordBank();
+  const map = { dragmatch:launchDragMatch, synonyms:launchSynonyms, quickfire:launchQuickFire,
+    reorder:launchSentenceReorder, paragraph:launchParagraphReorder, cloze:launchCloze,
+    truefalse:launchTrueFalse, factopinion:launchFactOpinion, agreedisagree:launchAgreeDisagree, quiz:launchQuiz };
+  (map[sub] || (()=>{}))();
+  syncHeaderHeight();
+}
+
+/* ══════════ BEFORE: paginated opinion cards ══════════ */
+function buildOpinions(){
+  setKick('Before Reading · Question ' + (surveyIdx+1) + ' of ' + LESSON.survey.length);
+  const q = LESSON.survey[surveyIdx];
+  content().innerHTML = `
+    <div class="hero-word" style="font-size:clamp(1.3rem,4vw,1.8rem);font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--poster-ink);line-height:1.35;margin-bottom:1.1rem">${esc(q.question)}</div>
+    <div class="optlist" id="opt-list">${q.options.map((o,i)=>`<button class="opt2 ${surveyAns[q.id]===i?'picked':''}" data-i="${i}">${esc(o)}</button>`).join('')}</div>
+    <div class="pager">
+      <button class="pbtn ghost" id="prevQ" ${surveyIdx===0?'disabled':''}>← Back</button>
+      <span class="pager-count">${surveyIdx+1} / ${LESSON.survey.length}</span>
+      <button class="pbtn" id="nextQ">${surveyIdx===LESSON.survey.length-1?'Start Reading →':'Next →'}</button>
+    </div>`;
+  content().querySelectorAll('.opt2').forEach(b => b.addEventListener('click', () => {
+    const already = surveyAns[q.id] !== undefined;
+    surveyAns[q.id] = parseInt(b.dataset.i);
+    if (!already) addScore(5);
+    buildOpinions();
+  }));
+  document.getElementById('prevQ').addEventListener('click', () => { surveyIdx--; buildOpinions(); });
+  document.getElementById('nextQ').addEventListener('click', () => {
+    if (surveyIdx < LESSON.survey.length-1) { surveyIdx++; buildOpinions(); }
+    else { tier='while'; sub='read'; renderTier1(); renderTier2(); renderCard(); }
+  });
+}
+
+/* ══════════ WHILE: reading cards (sectioned or full text) ══════════ */
+function wireVocabTaps(container){
+  container.querySelectorAll('.vw').forEach(span => span.addEventListener('click', e => {
+    e.stopPropagation();
+    const word = span.dataset.word;
+    if (word && !vocabSeen.has(word)) { vocabSeen.add(word); addScore(3); }
+    if (activeTipWord === span) { hideWordTip(); return; }
+    showWordTip(span);
+  }));
+}
+function vwHtml(text){
+  return text.replace(/<vw>(.*?)<\/vw>/g, (_, word) => {
+    const def = (LESSON.vocabulary[word] || '').replace(/"/g,'&quot;');
+    return `<span class="vw" data-word="${esc(word)}" data-def="${def}">${esc(word)}</span>`;
+  });
+}
+function buildRead(){
+  const wrap = document.getElementById('readToggleWrap');
+  wrap.style.display = 'flex';
+  const sw = document.getElementById('readModeSwitch');
+  sw.classList.toggle('on', readFullText);
+  document.getElementById('toggleTxtSections').classList.toggle('on', !readFullText);
+  document.getElementById('toggleTxtFull').classList.toggle('on', readFullText);
+  sw.onclick = () => { readFullText = !readFullText; buildRead(); };
+  readFullText ? buildReadFull() : buildReadSections();
+}
+function buildReadSections(){
+  setKick('While Reading · Paragraph ' + (readIdx+1) + ' of ' + LESSON.paragraphs.length);
+  const p = LESSON.paragraphs[readIdx];
+  content().innerHTML = `
+    <p style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--poster-faint);margin-bottom:1rem">Tap any highlighted word for its meaning.</p>
+    <div class="reading-para">${vwHtml(p.text)}</div>
+    <div class="pager">
+      <button class="pbtn ghost" id="prevP" ${readIdx===0?'disabled':''}>← Back</button>
+      <span class="pager-count">${readIdx+1} / ${LESSON.paragraphs.length}</span>
+      <button class="pbtn" id="nextP">${readIdx===LESSON.paragraphs.length-1?'Go to Practice →':'Next →'}</button>
+    </div>`;
+  wireVocabTaps(content());
+  document.getElementById('prevP').addEventListener('click', () => { readIdx--; buildReadSections(); });
+  document.getElementById('nextP').addEventListener('click', () => {
+    if (readIdx < LESSON.paragraphs.length-1) { readIdx++; buildReadSections(); }
+    else { tier='post'; sub=TIER2.post[0].id; renderTier1(); renderTier2(); renderCard(); }
+  });
+}
+function buildReadFull(){
+  setKick('While Reading · Full Text');
+  const paras = LESSON.paragraphs.map(p => `<p class="reading-para" style="margin-bottom:1.1rem">${vwHtml(p.text)}</p>`).join('');
+  content().innerHTML = `
+    <p style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--poster-faint);margin-bottom:1rem">Tap any highlighted word for its meaning.</p>
+    ${paras}
+    <div class="pager" style="justify-content:flex-end">
+      <button class="pbtn" id="nextFull">Go to Practice →</button>
+    </div>`;
+  wireVocabTaps(content());
+  document.getElementById('nextFull').addEventListener('click', () => {
+    tier='post'; sub=TIER2.post[0].id; renderTier1(); renderTier2(); renderCard();
+  });
+}
+
+function buildWordBank(){
+  setKick('While Reading · Word Bank');
+  content().innerHTML = Object.entries(LESSON.vocabulary).map(([w,d]) =>
+    `<div class="glossary-row"><b>${esc(w)}</b><span>${esc(d)}</span></div>`).join('');
+}
+
+/* ══════════ POST: vocabulary games ══════════ */
+function launchDragMatch(){
+  setKick('Practice · Match Terms to Definitions');
+  const vocab = Object.entries(LESSON.vocabulary).slice(0,6);
+  const words = vocab.map(([w])=>w), defs = shuffle(vocab.map(([,d])=>d));
+  let selWord=null, selDef=null, matched=0;
+  content().innerHTML = `
+    <p style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--poster-faint);margin-bottom:.9rem">Tap a term, then tap its matching definition.</p>
+    <div class="match-layout">
+    <div><div class="col-label">Terms</div>${words.map(w=>`<div class="mitem wordm" data-word="${esc(w)}">${esc(w)}</div>`).join('')}</div>
+    <div><div class="col-label">Definitions</div>${defs.map(d=>`<div class="mitem defm" data-def="${esc(d)}">${esc(d)}</div>`).join('')}</div>
+  </div>`;
+  const wordEls = content().querySelectorAll('.wordm');
+  const defEls = content().querySelectorAll('.defm');
+  function tryMatch(){
+    if (!selWord || !selDef) return;
+    const ok = LESSON.vocabulary[selWord.dataset.word] === selDef.dataset.def;
+    if (ok){
+      selWord.classList.remove('selected'); selDef.classList.remove('selected');
+      selWord.classList.add('correct'); selDef.classList.add('correct');
+      addScore(20); matched++;
+      if (matched===words.length) toast('All matched! +'+(matched*20)+' pts');
+    } else {
+      selWord.classList.add('incorrect'); selDef.classList.add('incorrect');
+      const w=selWord, d=selDef;
+      setTimeout(()=>{ w.classList.remove('incorrect','selected'); d.classList.remove('incorrect','selected'); },600);
+    }
+    selWord=null; selDef=null;
+  }
+  wordEls.forEach(el=>{
+    el.addEventListener('click',()=>{
+      if (el.classList.contains('correct')) return;
+      wordEls.forEach(w=>w.classList.remove('selected'));
+      el.classList.add('selected'); selWord=el;
+      tryMatch();
+    });
+  });
+  defEls.forEach(el=>{
+    el.addEventListener('click',()=>{
+      if (el.classList.contains('correct')) return;
+      defEls.forEach(d=>d.classList.remove('selected'));
+      el.classList.add('selected'); selDef=el;
+      tryMatch();
+    });
+  });
+}
+
+function launchSynonyms(){
+  setKick('Practice · Synonym Matcher');
+  const pairs = Object.entries(LESSON.synonyms);
+  const words = pairs.map(([w])=>w), syns = shuffle(pairs.map(([,s])=>s));
+  let sel=null, matched=0;
+  content().innerHTML = `<div class="syn-layout">
+    <div><div class="col-label">Advanced</div>${words.map(w=>`<div class="synitem" data-word="${esc(w)}" data-type="word">${esc(w)}</div>`).join('')}</div>
+    <div><div class="col-label">Simple</div>${syns.map(s=>`<div class="synitem" data-word="${esc(s)}" data-type="syn">${esc(s)}</div>`).join('')}</div>
+  </div>`;
+  content().querySelectorAll('.synitem').forEach(el=>{
+    el.addEventListener('click',()=>{
+      if (el.classList.contains('matched')) return;
+      if (!sel){ el.classList.add('selected'); sel=el; return; }
+      if (sel===el){ el.classList.remove('selected'); sel=null; return; }
+      const a=sel,b=el;
+      const word=a.dataset.type==='word'?a.dataset.word:b.dataset.word;
+      const syn=a.dataset.type==='syn'?a.dataset.word:b.dataset.word;
+      const ok=LESSON.synonyms[word]===syn;
+      if (ok){ a.classList.remove('selected'); a.classList.add('matched'); b.classList.add('matched'); addScore(15); matched++;
+        if (matched===pairs.length){ toast('All synonyms matched!'); addScore(30); } }
+      else { a.classList.add('wrong'); b.classList.add('wrong'); setTimeout(()=>{ a.classList.remove('wrong','selected'); b.classList.remove('wrong'); },600); }
+      sel=null;
+    });
+  });
+}
+
+function launchQuickFire(){
+  const items = shuffle(Object.entries(LESSON.vocabulary)).slice(0,8);
+  let idx=0, correct=0;
+  function render(){
+    setKick('Practice · Quick-Fire ' + (idx+1) + '/' + items.length);
+    if (idx>=items.length){
+      content().innerHTML = `<p style="text-align:center;font-size:1.1rem">${correct>=6?'🎉':'💪'} You got <strong>${correct}/${items.length}</strong> correct</p>`;
+      addScore(correct*8); return;
+    }
+    const [word, correctDef] = items[idx];
+    const wrongs = shuffle(Object.values(LESSON.vocabulary).filter(d=>d!==correctDef)).slice(0,3);
+    const opts = shuffle([correctDef, ...wrongs]);
+    content().innerHTML = `<p class="hero-word" style="font-size:1.3rem;font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:1rem">What does "${esc(word)}" mean?</p><div id="qf-opts"></div>`;
+    const wrap = document.getElementById('qf-opts');
+    opts.forEach(opt=>{
+      const b = document.createElement('button'); b.className='qf-opt'; b.textContent=opt;
+      b.addEventListener('click',()=>qfAns(b,opt,correctDef));
+      wrap.appendChild(b);
+    });
+  }
+  function qfAns(btn,chosen,correctDef){
+    content().querySelectorAll('.qf-opt').forEach(b=>b.disabled=true);
+    if (chosen===correctDef){ btn.classList.add('right'); correct++; }
+    else { btn.classList.add('wrong'); content().querySelectorAll('.qf-opt').forEach(b=>{ if(b.textContent===correctDef) b.classList.add('right'); }); }
+    idx++; setTimeout(render,900);
+  }
+  render();
+}
+
+/* ══════════ POST: word order ══════════ */
+function launchSentenceReorder(){
+  const items = LESSON.reorderSentences;
+  let idx=0, chosen=[];
+  function render(){
+    setKick('Practice · Word Order ' + (idx+1) + '/' + items.length);
+    if (idx>=items.length){ content().innerHTML = `<p style="text-align:center">Nice — you rebuilt all ${items.length} sentences.</p>`; return; }
+    const correctWords = items[idx].words;
+    const bank = shuffle(correctWords.map((w,i)=>({w,i})));
+    chosen=[];
+    content().innerHTML = `
+      <div class="answer-strip" id="ro-strip"><span class="placeholder">Tap words below to build the sentence…</span></div>
+      <div class="word-bank" id="ro-bank"></div>
+      <button class="pbtn" id="ro-check" disabled>Check</button>
+      <div class="feedback-line" id="ro-fb"></div>`;
+    const bankEl = document.getElementById('ro-bank');
+    bank.forEach(({w,i})=>{
+      const chip=document.createElement('span'); chip.className='chip2'; chip.textContent=w; chip.dataset.i=i;
+      chip.addEventListener('click',()=>{ if(chip.classList.contains('used'))return; chip.classList.add('used'); chosen.push({w,i,el:chip}); renderStrip(); });
+      bankEl.appendChild(chip);
+    });
+    document.getElementById('ro-check').addEventListener('click', check);
+  }
+  function renderStrip(){
+    const strip=document.getElementById('ro-strip'); strip.innerHTML='';
+    if (!chosen.length) strip.innerHTML='<span class="placeholder">Tap words below to build the sentence…</span>';
+    chosen.forEach((c,pos)=>{
+      const chip=document.createElement('span'); chip.className='chip2'; chip.textContent=c.w;
+      chip.addEventListener('click',()=>{ chosen.splice(pos,1); c.el.classList.remove('used'); renderStrip(); });
+      strip.appendChild(chip);
+    });
+    document.getElementById('ro-check').disabled = chosen.length !== items[idx].words.length;
+  }
+  function check(){
+    const correctWords = items[idx].words;
+    const ok = chosen.map(c=>c.w).join(' ') === correctWords.join(' ');
+    const fb = document.getElementById('ro-fb'); fb.classList.add('show');
+    if (ok){ fb.classList.add('good'); fb.classList.remove('bad'); fb.textContent='Correct! '+correctWords.join(' '); addScore(15); idx++; setTimeout(render,1100); }
+    else { fb.classList.add('bad'); fb.classList.remove('good'); fb.textContent='Not quite — try rearranging the words.'; document.getElementById('ro-check').disabled=true;
+      setTimeout(()=>{ fb.classList.remove('show'); document.getElementById('ro-check').disabled=false; },1400); }
+  }
+  render();
+}
+
+/* ══════════ POST: story order ══════════ */
+function launchParagraphReorder(){
+  setKick('Practice · Story Order');
+  const originals = LESSON.paragraphs.slice(0,5).map((p,i)=>({ text: stripTags(p.text), correctPos:i }));
+  let order = shuffle(originals.map((_,i)=>i));
+  function render(){
+    const rows = order.map((origIdx,pos)=>`
+      <div class="order-row" data-pos="${pos}">
+        <span class="order-num">${pos+1}.</span>
+        <span style="flex:1">${esc(originals[origIdx].text)}</span>
+        <div class="order-controls">
+          <button data-dir="up" ${pos===0?'disabled':''}><i class="fas fa-chevron-up"></i></button>
+          <button data-dir="down" ${pos===order.length-1?'disabled':''}><i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>`).join('');
+    content().innerHTML = `<div id="po-list">${rows}</div><button class="pbtn" id="po-check" style="margin-top:1rem">Check order</button><div class="feedback-line" id="po-fb"></div>`;
+    content().querySelectorAll('#po-list button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const row=btn.closest('.order-row'); const pos=parseInt(row.dataset.pos); const dir=btn.dataset.dir;
+        const swapWith = dir==='up'?pos-1:pos+1;
+        if (swapWith<0||swapWith>=order.length) return;
+        [order[pos],order[swapWith]]=[order[swapWith],order[pos]];
+        render();
+      });
+    });
+    document.getElementById('po-check').addEventListener('click', checkOrder);
+  }
+  function checkOrder(){
+    let correctCount=0;
+    content().querySelectorAll('.order-row').forEach((row,pos)=>{
+      const origIdx=order[pos]; const isRight=originals[origIdx].correctPos===pos;
+      row.classList.add(isRight?'correct':'incorrect'); if (isRight) correctCount++;
+    });
+    const fb=document.getElementById('po-fb'); fb.classList.add('show');
+    if (correctCount===order.length){ fb.classList.add('good'); fb.classList.remove('bad'); fb.textContent='All paragraphs in the right order!'; addScore(40); }
+    else { fb.classList.add('bad'); fb.classList.remove('good'); fb.textContent=`${correctCount}/${order.length} in the right place — adjust and check again.`; addScore(correctCount*3);
+      setTimeout(()=>{ content().querySelectorAll('.order-row').forEach(r=>r.classList.remove('correct','incorrect')); fb.classList.remove('show'); },1800); }
+  }
+  render();
+}
+
+/* ══════════ POST: cloze ══════════ */
+function launchCloze(){
+  setKick('Practice · Fill the Gaps');
+  const raw = LESSON.cloze.text;
+  const answers = [...raw.matchAll(/\{(.*?)\}/g)].map(m=>m[1]);
+  const bankWords = shuffle([...answers, ...LESSON.cloze.distractors]);
+  let filled = new Array(answers.length).fill(null);
+  function templateHTML(){
+    let i=-1;
+    return raw.replace(/\{(.*?)\}/g, ()=>{ i++; const val=filled[i]; return `<span class="blank ${val?'filled':''}" data-idx="${i}">${val?esc(val):'＿＿＿＿'}</span>`; });
+  }
+  function render(){
+    content().innerHTML = `
+      <p class="cloze-text" id="cloze-text">${templateHTML()}</p>
+      <div style="height:1px;background:var(--poster-rule);margin:1rem 0"></div>
+      <div class="word-bank" id="cloze-bank"></div>
+      <button class="pbtn" id="cloze-check" ${filled.some(f=>f===null)?'disabled':''}>Check answers</button>
+      <div class="feedback-line" id="cloze-fb"></div>`;
+    const bankEl = document.getElementById('cloze-bank');
+    bankWords.forEach(w=>{
+      const chip=document.createElement('span'); chip.className='chip2'; chip.textContent=w;
+      if (filled.includes(w)) chip.classList.add('used');
+      chip.addEventListener('click',()=>{ if(chip.classList.contains('used'))return; const ne=filled.findIndex(f=>f===null); if(ne===-1)return; filled[ne]=w; render(); });
+      bankEl.appendChild(chip);
+    });
+    content().querySelectorAll('.blank').forEach(b=>b.addEventListener('click',()=>{ const idx=parseInt(b.dataset.idx); if(filled[idx]===null)return; filled[idx]=null; render(); }));
+    document.getElementById('cloze-check').addEventListener('click', checkCloze);
+  }
+  function checkCloze(){
+    let correctCount=0;
+    content().querySelectorAll('.blank').forEach((b,i)=>{ const ok=filled[i]===answers[i]; b.classList.add(ok?'correct':'incorrect'); if(ok)correctCount++; });
+    const fb=document.getElementById('cloze-fb'); fb.classList.add('show'); document.getElementById('cloze-check').disabled=true;
+    if (correctCount===answers.length){ fb.classList.add('good'); fb.classList.remove('bad'); fb.textContent='All gaps correct!'; addScore(35); }
+    else { fb.classList.add('bad'); fb.classList.remove('good'); fb.textContent=`${correctCount}/${answers.length} correct. Tap a highlighted gap to try again.`; addScore(correctCount*5);
+      content().querySelectorAll('.blank.incorrect').forEach(b=>b.addEventListener('click',()=>{ const idx=parseInt(b.dataset.idx); filled[idx]=null; render(); },{once:true})); }
+  }
+  render();
+}
+
+/* ══════════ POST: true/false/not given ══════════ */
+function launchTrueFalse(){
+  setKick('Practice · True, False, or Not Given?');
+  const items = LESSON.trueFalseNotGiven;
+  content().innerHTML = items.map((item,i)=>`
+    <div class="tfng-row" data-i="${i}">
+      <div class="tfng-statement">${i+1}. ${esc(item.statement)}</div>
+      <div class="tfng-btns">${['True','False','Not Given'].map(o=>`<button class="tfng-btn" data-opt="${o}">${o}</button>`).join('')}</div>
+      <div class="tfng-explain">${esc(item.explain)}</div>
+    </div>`).join('');
+  content().querySelectorAll('.tfng-row').forEach((row,i)=>{
+    const item = items[i];
+    row.querySelectorAll('.tfng-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        row.querySelectorAll('.tfng-btn').forEach(b=>b.disabled=true);
+        const right = btn.dataset.opt===item.answer;
+        btn.classList.add(right?'right2':'wrong2');
+        if (!right) row.querySelectorAll('.tfng-btn').forEach(b=>{ if(b.dataset.opt===item.answer) b.classList.add('right2'); });
+        else addScore(12);
+        row.querySelector('.tfng-explain').classList.add('show');
+      });
+    });
+  });
+}
+
+/* ══════════ POST: fact or opinion ══════════ */
+function launchFactOpinion(){
+  setKick('Practice · Fact or Opinion?');
+  const items = shuffle(LESSON.factOpinion);
+  content().innerHTML = items.map((item,i)=>`
+    <div class="tfng-row" data-i="${i}">
+      <div class="tfng-statement">${i+1}. "${esc(item.statement)}"</div>
+      <div class="bucket-row"><button class="bucket-btn" data-pick="fact">Fact</button><button class="bucket-btn" data-pick="opinion">Opinion</button></div>
+      <div class="tfng-explain">${esc(item.explain)}</div>
+    </div>`).join('');
+  content().querySelectorAll('.tfng-row').forEach((row,i)=>{
+    const item = items[i];
+    row.querySelectorAll('.bucket-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        row.querySelectorAll('.bucket-btn').forEach(b=>b.disabled=true);
+        const right = btn.dataset.pick===item.type;
+        btn.classList.add(right?'right2':'wrong2');
+        if (!right) row.querySelectorAll('.bucket-btn').forEach(b=>{ if(b.dataset.pick===item.type) b.classList.add('right2'); });
+        else addScore(12);
+        row.querySelector('.tfng-explain').classList.add('show');
+      });
+    });
+  });
+}
+
+/* ══════════ POST: agree/disagree ══════════ */
+function launchAgreeDisagree(){
+  const items = LESSON.agreeDisagree;
+  let idx=0, agree=0, disagree=0;
+  function render(){
+    setKick('Practice · Agree or Disagree ' + Math.min(idx+1,items.length) + '/' + items.length);
+    if (idx>=items.length){
+      const total = agree+disagree || 1;
+      content().innerHTML = `<div class="swipe-card">
+        <p>You've shared your view on all ${items.length} statements.</p>
+        <div class="swipe-bar"><div class="a" style="width:${(agree/total)*100}%"></div><div class="d" style="width:${(disagree/total)*100}%"></div></div>
+        <p style="font-size:.85rem;color:var(--poster-faint)">Agreed with ${agree}, disagreed with ${disagree}</p></div>`;
+      addScore(items.length*5); return;
+    }
+    content().innerHTML = `<div class="swipe-card">
+      <div class="swipe-progress">STATEMENT ${idx+1} OF ${items.length}</div>
+      <div class="swipe-statement">${esc(items[idx])}</div>
+      <div class="swipe-btns"><button class="swipe-btn agree" id="sa-agree">👍 Agree</button><button class="swipe-btn disagree" id="sa-disagree">👎 Disagree</button></div>
+    </div>`;
+    document.getElementById('sa-agree').addEventListener('click',()=>{ agree++; idx++; render(); });
+    document.getElementById('sa-disagree').addEventListener('click',()=>{ disagree++; idx++; render(); });
+  }
+  render();
+}
+
+/* ══════════ POST: quiz (paginated) ══════════ */
+function launchQuiz(){
+  setKick('Comprehension Test · Question ' + (quizIdx+1) + ' of ' + LESSON.quiz.length);
+  const q = LESSON.quiz[quizIdx];
+  content().innerHTML = `
+    <div class="hero-word" style="font-size:clamp(1.2rem,3.6vw,1.5rem);font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--poster-ink);line-height:1.35;margin-bottom:1.1rem">${esc(q.q)}</div>
+    <div class="optlist">${q.opts.map((o,i)=>`<button class="opt2 ${quizAns[quizIdx]===i?'picked':''}" data-i="${i}">${esc(o)}</button>`).join('')}</div>
+    <div class="pager">
+      <button class="pbtn ghost" id="prevQZ" ${quizIdx===0?'disabled':''}>← Back</button>
+      <span class="pager-count">${quizIdx+1} / ${LESSON.quiz.length}</span>
+      <button class="pbtn" id="nextQZ">${quizIdx===LESSON.quiz.length-1?'Submit →':'Next →'}</button>
+    </div>`;
+  content().querySelectorAll('.opt2').forEach(b=>b.addEventListener('click',()=>{ quizAns[quizIdx]=parseInt(b.dataset.i); launchQuiz(); }));
+  document.getElementById('prevQZ').addEventListener('click',()=>{ quizIdx--; launchQuiz(); });
+  document.getElementById('nextQZ').addEventListener('click',()=>{
+    if (quizIdx < LESSON.quiz.length-1) { quizIdx++; launchQuiz(); }
+    else showCompletion();
+  });
+}
+
+function showCompletion(){
+  let correct=0;
+  LESSON.quiz.forEach((q,i)=>{ if (quizAns[i]===q.a) correct++; });
+  addScore(correct*15);
+  const mins = Math.max(1, Math.round((Date.now()-startTime)/60000));
+  document.getElementById('s-score-big').textContent = score;
+  document.getElementById('s-vocab').textContent = vocabSeen.size;
+  document.getElementById('s-quiz').textContent = Math.round((correct/Math.max(1,LESSON.quiz.length))*100)+'%';
+  document.getElementById('s-time').textContent = mins;
+  document.getElementById('takeaways-container').innerHTML = LESSON.takeaways.map(t=>`<div class="takeaway"><i class="${t.icon}"></i><span>${esc(t.text)}</span></div>`).join('');
+  document.getElementById('ph-done').classList.add('show');
+}
+
+function restart(){
+  score=0; vocabSeen=new Set(); startTime=Date.now(); surveyIdx=0; surveyAns={}; readIdx=0; readFullText=false; quizIdx=0; quizAns={};
+  tier='before'; sub='opinions';
+  document.getElementById('score-val').textContent='0';
+  document.getElementById('ph-done').classList.remove('show');
+  renderTier1(); renderTier2(); renderCard();
+}
+
+document.title = LESSON.meta.title;
+document.getElementById('eyebrowLabel').textContent = LESSON.meta.eyebrow;
+document.getElementById('titleLabel').textContent = LESSON.meta.title;
+
+sub = TIER2[tier][0].id;
+renderTier1(); renderTier2(); renderCard();
+window.addEventListener('resize', syncHeaderHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(syncHeaderHeight).observe(document.querySelector('.header'));
+}
+</script>
+</body>
+</html>
