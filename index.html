@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F0EEE9">
+<title>INTUITY — Reading Comprehension Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+:root{
+  --ground:#F0EEE9; --poster:#F5F3EE; --poster-ink:#14110E; --poster-soft:rgba(20,17,14,.68);
+  --poster-faint:rgba(20,17,14,.5); --poster-rule:rgba(20,17,14,.16); --ink:#17171A; --faint:#8A9093;
+  --spring:cubic-bezier(.2,1.4,.4,1);
+}
+html,body{ width:100%; min-height:100vh; }
+body{
+  background:var(--ground); color:var(--ink); font-family:'DM Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{ color:inherit; text-decoration:none; }
+:focus-visible{ outline:2px solid var(--poster-ink); outline-offset:3px; border-radius:6px; }
+
+.hub-topbar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem; max-width:960px; margin:0 auto; padding:1.6rem 1.4rem 1.2rem; border-bottom:1px solid var(--poster-rule); }
+.brand{ justify-self:start; line-height:1.2; }
+.brand-name{ font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:1.15rem; letter-spacing:.02em; color:var(--poster-ink); }
+.brand-tag{ font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--poster-faint); margin-top:1px; }
+.brand-author{ font-size:.72rem; color:var(--poster-soft); margin-top:2px; }
+.hub-topcenter{ justify-self:center; font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--poster-faint); text-align:center; }
+.hub-topright{ justify-self:end; }
+.level-badge{ font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.08em; color:var(--poster-soft); border:1px solid var(--poster-rule); border-radius:99px; padding:.3rem .8rem; white-space:nowrap; }
+@media(max-width:600px){
+  .hub-topbar{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:.3rem; padding:1.4rem 1.2rem 1.1rem; }
+  .brand{ justify-self:center; text-align:center; }
+}
+
+.path{
+  position:relative; display:grid; grid-template-columns:1fr 72px 1fr; column-gap:1rem;
+  max-width:720px; margin:0 auto; padding:2.4rem 1.2rem 5rem;
+}
+.path-line{ grid-column:2; grid-row:1 / -1; justify-self:center; width:2px; background:var(--poster-rule); }
+
+.node{ display:contents; }
+.node .ring{
+  grid-column:2; position:relative; z-index:1; align-self:start; justify-self:center;
+  width:52px; height:52px; border-radius:50%; background:#14110E; border:4.5px solid var(--rim,#8A9093);
+  display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif;
+  font-weight:700; font-size:.88rem; color:#fff; transition:transform .18s var(--spring);
+}
+a.node .ring{ cursor:pointer; }
+a.node:hover .ring{ transform:scale(1.08); }
+
+.node .node-body{ align-self:center; padding:.4rem 0; }
+.node.left .node-body{ grid-column:1; text-align:right; }
+.node.right .node-body{ grid-column:3; text-align:left; }
+
+.node-tag{ display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--poster-faint); margin-bottom:.35rem; }
+.node.left .node-tag{ flex-direction:row-reverse; }
+.node-tag::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--rim,#8A9093); flex:none; }
+.node h2{ font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:700; color:var(--poster-ink); line-height:1.32; margin-bottom:.45rem; }
+.node-cta{ font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.06em; color:var(--rim,#8A9093); }
+
+.node.soon .ring{ background:transparent; border-style:dashed; border-color:var(--poster-rule); color:var(--poster-faint); }
+.node.soon h2{ color:var(--poster-faint); }
+.node.soon .node-tag::before{ background:var(--poster-rule); }
+
+@media(max-width:600px){
+  .path{ grid-template-columns:56px 1fr; column-gap:.9rem; padding:2rem 1.2rem 4rem; }
+  .path-line{ grid-column:1; justify-self:center; }
+  .node .ring{ grid-column:1; width:42px; height:42px; font-size:.78rem; border-width:4px; }
+  .node.left .node-body, .node.right .node-body{ grid-column:2; text-align:left; }
+  .node.left .node-tag{ flex-direction:row; }
+}
+</style>
+</head>
+<body>
+
+<header class="hub-topbar">
+  <div class="brand">
+    <div class="brand-name">INTUITY</div>
+    <div class="brand-tag">Immersive learning</div>
+    <div class="brand-author">Majid Nashtai</div>
+  </div>
+  <div class="hub-topcenter">Reading Comprehension Practice</div>
+  <div class="hub-topright"><span class="level-badge">B1–B2</span></div>
+</header>
+
+<main class="path" id="path">
+  <div class="path-line"></div>
+
+  <a class="node left" href="mango-founder.html" style="--rim:#B44A22">
+    <div class="ring">01</div>
+    <div class="node-body">
+      <span class="node-tag">Business &amp; Crime · Spain</span>
+      <h2>Son of Mango Founder Steps Down</h2>
+      <span class="node-cta">Start lesson →</span>
+    </div>
+  </a>
+
+  <a class="node right" href="hot-drink.html" style="--rim:#7A8556">
+    <div class="ring">02</div>
+    <div class="node-body">
+      <span class="node-tag">Health &amp; Wellbeing · Science</span>
+      <h2>Does a Hot Drink Really Cool You Down?</h2>
+      <span class="node-cta">Start lesson →</span>
+    </div>
+  </a>
+
+  <div class="node left soon">
+    <div class="ring">+</div>
+    <div class="node-body">
+      <span class="node-tag">Coming soon</span>
+      <h2>More lessons on the way</h2>
+    </div>
+  </div>
+</main>
+
+<script>
+/* Auto-number each node's row on the grid, in DOM order, so adding a
+   new <a class="node left|right"> lesson block just works — no manual
+   row math needed. */
+document.querySelectorAll('#path .node').forEach((node, i) => {
+  const row = i + 1;
+  node.querySelectorAll(':scope > *').forEach(child => { child.style.gridRow = row; });
+});
+</script>
+</body>
+</html>
